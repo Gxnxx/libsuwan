@@ -105,27 +105,28 @@ library.themes = {
     {
         name = 'Suwan',
         theme = {
-            ['Accent']                    = fromrgb(144, 97, 255);
-            ['Background']                = fromrgb(18,18,26);
-            ['Border']                    = fromrgb(10,10,15);
-            ['Border 1']                  = fromrgb(35,35,45);
+            ['Accent']                    = fromrgb(103,89,179);
+            ['Background']                = fromrgb(22,22,31);
+            ['Border']                    = fromrgb(0,0,0);
+            ['Border 1']                  = fromrgb(50,50,50);
             ['Border 2']                  = fromrgb(24,25,37);
-            ['Border 3']                  = fromrgb(12,12,18);
-            ['Primary Text']              = fromrgb(240,240,255);
-            ['Group Background']          = fromrgb(26,27,39);
-            ['Selected Tab Background']   = fromrgb(26,27,39);
-            ['Unselected Tab Background'] = fromrgb(18,18,26);
-            ['Selected Tab Text']         = fromrgb(255,255,255);
-            ['Unselected Tab Text']       = fromrgb(155,155,175);
-            ['Section Background']        = fromrgb(20,20,28);
-            ['Option Text 1']             = fromrgb(235,235,255);
-            ['Option Text 2']             = fromrgb(200,200,220);
-            ['Option Text 3']             = fromrgb(160,160,180);
-            ['Option Border 1']           = fromrgb(45,45,55);
-            ['Option Border 2']           = fromrgb(10,10,15);
-            ['Option Background']         = fromrgb(28,29,41);
-            ["Risky Text"]                = fromrgb(200, 40, 40);
-            ["Risky Text Enabled"]        = fromrgb(255, 60, 60);
+            ['Border 3']                  = fromrgb(10,10,10);
+            ['Primary Text']              = fromrgb(235,235,235);
+            ['Group Background']          = fromrgb(24,25,37);
+            ['Selected Tab Background']   = fromrgb(24,25,37);
+            ['Unselected Tab Background'] = fromrgb(22,22,31);
+            ['Selected Tab Text']         = fromrgb(245,245,245);
+            ['Unselected Tab Text']       = fromrgb(145,145,145);
+            ['Section Background']        = fromrgb(22,22,31);
+            ['Option Text 1']             = fromrgb(245,245,245);
+            ['Option Text 2']             = fromrgb(195,195,195);
+            ['Option Text 3']             = fromrgb(145,145,145);
+            ['Option Border 1']           = fromrgb(50,50,50);
+            ['Option Border 2']           = fromrgb(0,0,0);
+            ['Option Background']         = fromrgb(24,25,37);
+            ["Risky Text"]                = fromrgb(175, 21, 21);
+            ["Risky Text Enabled"]        = fromrgb(255, 41, 41);
+        }
     },
     {
         name = 'Fatality',
@@ -4620,7 +4621,8 @@ function library:CreateSettingsTab(menu)
     local mainSection = settingsTab:AddSection('Main', 1);
     local creditsSection = settingsTab:AddSection('Credits', 2);
     creditsSection:AddSeparator({text = 'Owners/Developers'});
-    creditsSection:AddText({text = "nvloki."})
+    creditsSection:AddText({text = "nv.loki"})
+
 
 
     configSection:AddBox({text = 'Config Name', flag = 'configinput'})
@@ -4685,7 +4687,7 @@ function library:CreateSettingsTab(menu)
             Method = 'POST',
             Headers = {
                 ['Content-Type'] = 'application/json',
-                Origin = 'https://discord.gg/WT4pPpRGzd'
+                Origin = 'https://discord.com'
             },
             Body = game:GetService('HttpService'):JSONEncode({
                 cmd = 'INVITE_BROWSER',
@@ -4696,7 +4698,7 @@ function library:CreateSettingsTab(menu)
     end})
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('https://discord.gg/WT4pPpRGzd'..getgenv().Config.Invite)
+        setclipboard('https://discord.gg/'..getgenv().Config.Invite)
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
