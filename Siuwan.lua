@@ -4681,52 +4681,6 @@ function library:CreateSettingsTab(menu)
         end
     end})
 
-mainSection:AddButton({
-    text = "Join Discord",
-    flag = "joindiscord",
-    confirm = true,
-    callback = function()
-        local HttpService = game:GetService("HttpService")
-        local inviteCode = getgenv().Config.Invite or "WT4pPpRGzd"
-        local inviteUrl = "https://discord.gg/" .. inviteCode
-
-        local success, res = pcall(function()
-            return syn.request({
-                Url = "http://127.0.0.1:6463/rpc?v=1",
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json",
-                    ["Origin"] = "https://discord.com"
-                },
-                Body = HttpService:JSONEncode({
-                    cmd = "INVITE_BROWSER",
-                    nonce = HttpService:GenerateGUID(false),
-                    args = { code = inviteCode }
-                })
-            })
-        end)
-
-        if success and res.StatusCode == 204 then
-            print("Discord invite opened successfully via RPC!")
-        else
-            warn("Discord RPC failed or unavailable, opening in browser...")
-
-            -- Try open in system browser (Windows)
-            local ok, err = pcall(function()
-                os.execute("start " .. inviteUrl)
-            end)
-
-            if ok then
-                print("Discord invite opened in browser.")
-            else
-                warn("Failed to open browser: ", err)
-            end
-        end
-    end
-})
-
-
-    
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
         setclipboard('https://discord.gg/WT4pPpRGzd'..getgenv().Config.Invite)
     end})
