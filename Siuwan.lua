@@ -4681,21 +4681,37 @@ function library:CreateSettingsTab(menu)
         end
     end})
 
-    mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
-        local res = syn.request({
-            Url = 'http://127.0.0.1:6463/rpc?v=1',
-            Method = 'POST',
-            Headers = {
-                ['Content-Type'] = 'application/json',
-                Origin = 'https://discord.gg/WT4pPpRGzd'
-            },
-            Body = game:GetService('HttpService'):JSONEncode({
-                cmd = 'INVITE_BROWSER',
-                nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = getgenv().Config.Invite}
+mainSection:AddButton({
+    text = 'Join Discord',
+    flag = 'joindiscord',
+    confirm = true,
+    callback = function()
+        local HttpService = game:GetService('HttpService')
+
+        local success, res = pcall(function()
+            return syn.request({
+                Url = 'http://127.0.0.1:6463/rpc?v=1',
+                Method = 'POST',
+                Headers = {
+                    ['Content-Type'] = 'application/json',
+                    Origin = 'https://discord.gg/' .. getgenv().Config.Invite
+                },
+                Body = HttpService:JSONEncode({
+                    cmd = 'INVITE_BROWSER',
+                    nonce = HttpService:GenerateGUID(false),
+                    args = { code = getgenv().Config.Invite }
+                })
             })
-        })
-    end})
+        end)
+
+        if success and res.StatusCode == 204 then
+            print("Discord invite opened successfully!")
+        else
+            warn("Failed to open Discord invite.", res)
+        end
+    end
+})
+
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
         setclipboard('https://discord.gg/WT4pPpRGzd'..getgenv().Config.Invite)
